@@ -1,0 +1,181 @@
+﻿@model PizzaHut.Models.Users
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Register</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body {
+            background-image: url('/images/bg_3.jpg');
+        }
+
+        label {
+            color: #1efffe;
+        }
+
+        .card {
+            border-radius: 0px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container .row #form1 {
+            background-image: url('/images/bg_2.jpg');
+            background-size: cover;
+        }
+
+        #form2 {
+            background: rgba(0,0,0,0.7);
+            height:600px;
+        }
+        #form1{
+            height:600px;
+        }
+        .row {
+            justify-content: center;
+        }
+
+        .form-group {
+            width: 300px;
+        }
+
+        .btn {
+            width: 200px;
+            border-radius: 20px;
+            color: aqua;
+            font-weight: bold;
+            border: 2px solid #1efffe;
+            transition: 0.5s ease-in-out;
+            margin-left: 50px;
+        }
+
+            .btn:hover {
+                color: white;
+                box-shadow: 0 0 20px 0 #1efffe;
+                background: linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1);
+            }
+
+
+
+        #form2 input {
+            background-color: rgba(0,0,0,0);
+            border-radius: 20px;
+            color: white;
+            border: 2px solid rgba(0,0,0,0.6);
+        }
+
+            #form2 input:focus {
+                border: 2px solid #1efffe;
+                box-shadow: 0 0 20px 0 #1efffe;
+            }
+
+        #form2 ::placeholder {
+            color: rgba(0,0,0,0.6);
+            font-weight: bold;
+        }
+
+        #form2 input:focus::placeholder {
+            color: #1efffe;
+        }
+
+        #form2 input:hover {
+            border: 2px solid #1efffe;
+            box-shadow: 0 0 20px 0 #1efffe;
+        }
+
+            #form2 input:hover::placeholder {
+                color: #1efffe;
+            }
+
+        h1 {
+            color: aqua;
+        }
+
+        p {
+            padding: 2px;
+            color: red;
+            transition: 0.5s ease-in;
+        }
+    </style>
+</head>
+<body>
+    <hr />
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="card" id="form1" style="width:400px">
+                </div>
+                <div class="card" style="width:400px" id="form2">
+                    <h1 style="font-weight:bold;font-family:Algerian; letter-spacing:5px; font-size:20px;">REGISTER</h1>
+                    <form asp-action="Register">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="UserID" class="control-label">EmailID</label>
+                            <input asp-for="UserID" class="form-control" placeholder="Enter EmailID" />
+                            <p>
+                                @if (ViewBag.ErrorUser != null)
+                                {@ViewBag.ErrorUser}
+                            </p>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Name" class="control-label">Name</label>
+                            <input asp-for="Name" class="form-control" placeholder="Enter Name" />
+                            <p>
+                                @if (ViewBag.ErrorName != null)
+                                {@ViewBag.ErrorName}
+                            </p>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Password" class="control-label">Password</label>
+                            <input asp-for="Password" class="form-control" placeholder="Enter Password" />
+                            <p>
+                                @if (ViewBag.ErrorPassword != null)
+                                {@ViewBag.ErrorPassword}
+                            </p>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Phone" class="control-label">Phone Number</label>
+                            <input asp-for="Phone" class="form-control" placeholder="Enter Phone Number" />
+                            <p>
+                                @if (ViewBag.ErrorPhone != null)
+                                {@ViewBag.ErrorPhone}
+                            </p>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Address" class="control-label">Address</label>
+                            <input asp-for="Address" class="form-control" placeholder="Enter Address" />
+                            <p>
+                                @if (ViewBag.ErrorAddress != null)
+                                {@ViewBag.ErrorAddress}
+                            </p>
+                        </div>
+                        <p>
+                            @if (ViewBag.Error != null)
+                            {@ViewBag.Error}
+                        else if (ViewBag.Success != null)
+                        {
+                            <script>alert("Registration Successfull");</script>
+                        }
+                        </p>
+                        <div class="form-group">
+                            <button type="submit" value="Create" class="btn">Register</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

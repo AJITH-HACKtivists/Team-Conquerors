@@ -1,0 +1,41 @@
+﻿@model ICollection<PizzaHut.Models.Toppings>
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script>
+        function SendID() {
+            var array = [];
+            var check = document.getElementsByName("Box");
+            for (var Check of check) {
+                if (Check.checked) {
+                    alert(Check.value);
+                }
+            }
+            //$.ajax({
+            //    type:"POST",
+            //    url: "/Toppings/Details",
+            //    data: JSON.stringify({ arr: array }),
+            //    traditional:true
+
+            //});
+        }
+    </script>
+</head>
+<body>
+  <p>your pizza name is @ViewBag.pizza.Name</p>
+  <img src=@ViewBag.pizza.Images style="width:200px;height:200px;">
+    @using (Html.BeginForm("Index", "Toppings", FormMethod.Post))
+    {
+        @foreach (var item in Model)
+        {
+            <input type="checkbox" name="Box" value=@item.ID>@item.Name
+        }
+       <button type="submit" onclick="SendID()">Order Now</button>
+    }
+</body>
+</html>

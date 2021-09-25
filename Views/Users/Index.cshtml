@@ -1,0 +1,211 @@
+﻿@model PizzaHut.Models.Users
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Index</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body {
+            background-image: url(images/bg_3.jpg);
+        }
+
+        label {
+            color: #1efffe;
+        }
+
+        .card {
+            height: 450px;
+            border-radius: 0px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #form1 {
+            background-image: url(images/bg_2.jpg);
+            background-size: cover;
+        }
+
+        #form2 {
+            background: rgba(0,0,0,0.7);
+        }
+
+        .row {
+            justify-content: center;
+            margin-top: 50px;
+        }
+
+        .form-group {
+            width: 300px;
+        }
+
+        .btn {
+            width: 200px;
+            border-radius: 20px;
+            color: aqua;
+            font-weight: bold;
+            border: 2px solid #1efffe;
+            transition: 0.5s ease-in-out;
+            margin-left: 50px;
+        }
+
+            .btn:hover {
+                color: white;
+                box-shadow: 0 0 20px 0 #1efffe;
+                background: linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1);
+            }
+
+
+
+        #form2 input {
+            background-color: rgba(0,0,0,0);
+            border-radius: 20px;
+            color: white;
+            border: 2px solid rgba(0,0,0,0.6);
+        }
+
+            #form2 input:focus {
+                border: 2px solid #1efffe;
+                box-shadow: 0 0 20px 0 #1efffe;
+            }
+
+        #form2 ::placeholder {
+            color: rgba(0,0,0,0.6);
+            font-weight: bold;
+        }
+
+        #form2 input:focus::placeholder {
+            color: #1efffe;
+        }
+
+        #form2 input:hover {
+            border: 2px solid #1efffe;
+            box-shadow: 0 0 20px 0 #1efffe;
+        }
+
+            #form2 input:hover::placeholder {
+                color: #1efffe;
+            }
+
+        .fa {
+            padding: 10px;
+            font-size: 20px;
+            width: 40px;
+            text-align: center;
+            text-decoration: none;
+            margin-left: 35px;
+            border-radius: 60px;
+        }
+
+            .fa:hover {
+                opacity: 0.7;
+            }
+
+        .fa-facebook {
+            background: #3B5998;
+            color: white;
+        }
+
+        .fa-twitter {
+            background: #55ACEE;
+            color: white;
+        }
+
+        .fa-google {
+            background: #dd4b39;
+            color: white;
+        }
+
+        .fa-linkedin {
+            background: #007bb5;
+            color: white;
+        }
+
+        #icons {
+            position: relative;
+            top: 0;
+        }
+
+        h1 {
+            color: aqua;
+        }
+
+        .link {
+            color: White;
+            text-decoration: none;
+            margin-top: 5px;
+            letter-spacing: 2px;
+        }
+    </style>
+
+</head>
+<body>
+    <hr />
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="card" id="form1" style="width:400px">
+                </div>
+                <div class="card" style="width:400px" id="form2">
+                    <h1 style="font-weight:bold;font-family:Algerian; letter-spacing:5px;">LOGIN</h1>
+                    <form asp-action="Index">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="UserID" class="control-label">Email</label>
+                            <input asp-for="UserID" class="form-control" placeholder="Enter Email" />
+                            <span asp-validation-for="UserID" class="text-danger">
+                                @if (ViewBag.ErrorUser != null)
+                                {@ViewBag.ErrorUser}
+                            </span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Password" class="control-label"></label>
+                            <input asp-for="Password" class="form-control" placeholder="Enter Password" />
+                            <span asp-validation-for="Password" class="text-danger">
+                                @if (ViewBag.ErrorPassword != null)
+                                {
+                                    @ViewBag.ErrorPassword
+                                }
+
+                            </span>
+                        </div>
+                        <span class="text-danger">
+                            @if (ViewBag.Error != null)
+                            {@ViewBag.Error}
+                        else if (ViewBag.Success != null)
+                        {
+                            <script>alert("Login Successfull");</script>
+                        }
+                        </span>
+                        <div class="form-group">
+                            <button type="submit" value="Submit" class="btn">Submit</button>
+                        </div>
+                    </form>
+                    @Html.ActionLink("Register | Create an account", "Register", "Users", new { @class = "btn btn-link" })
+                    <p style="color:navajowhite;">---------------------------or----------------------------</p>
+                    <div class="container" id="icons">
+                        <a href="#" class="fa fa-facebook"></a>
+                        <a href="#" class="fa fa-twitter"></a>
+                        <a href="#" class="fa fa-google"></a>
+                        <a href="#" class="fa fa-linkedin"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+</body>
+</html>
