@@ -1,9 +1,28 @@
-﻿@*
+﻿@model PizzaHut.Models.Toppings
+@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
 }
-@foreach (var item in Model)
- {
-   <script>alert(@item.Name)</script>
- }
+<html>
+<head>
+<script>alert("Order Added To Cart Successfully");
+ 
+    </script>
+</head>
+<body>
+    @if (@ViewBag.User== null) { 
+    <p>@TempData["UserID"]</p>
+    }
+            else
+            {
+                @ViewBag.User;
+            }
+    @foreach(var item in TempData["Pizza"].ToString())
+            {
+              <p>@item</p>
+            }
+    @Html.ActionLink("Go back","Index","Pizza",new {UserID=@ViewBag.User})
+   
+</body>
+</html>

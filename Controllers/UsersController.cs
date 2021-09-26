@@ -3,10 +3,8 @@ using Microsoft.Extensions.Logging;
 using PizzaHut.Models;
 using PizzaHut.Services;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace PizzaHut.Controllers
 {
@@ -20,6 +18,7 @@ namespace PizzaHut.Controllers
             _repo = repo;
             _logger = logger;
         }
+  
         [HttpGet]
         public IActionResult Index()
         {
@@ -47,7 +46,7 @@ namespace PizzaHut.Controllers
                     TempData["UserName"] = users.Name;
                     TempData["UserID"] = users.UserID;
                     TempData["CustID"] = users.ID;
-                    return RedirectToAction("Index", "Pizza");
+                    return RedirectToAction("Index", "Pizza",new {UserID=users.UserID });
                 }
                 else
                 {
@@ -102,7 +101,8 @@ namespace PizzaHut.Controllers
                     TempData["UserName"] = user.Name;
                     TempData["UserID"] = user.UserID;
                     ViewBag.Success = "Registeration Successfull";
-                    return RedirectToAction("Index","Pizza");
+                    
+                    return RedirectToAction("Index","Pizza",new { UserID = users.UserID });
                 }
                 else
                 {

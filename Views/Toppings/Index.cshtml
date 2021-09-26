@@ -8,34 +8,34 @@
 <head>
     <title></title>
     <script>
-        function SendID() {
-            var array = [];
-            var check = document.getElementsByName("Box");
-            for (var Check of check) {
-                if (Check.checked) {
-                    alert(Check.value);
-                }
-            }
-            //$.ajax({
-            //    type:"POST",
-            //    url: "/Toppings/Details",
-            //    data: JSON.stringify({ arr: array }),
-            //    traditional:true
-
-            //});
-        }
+        //function SendID() {
+        //    var array = [];
+        //    var check = document.getElementsByName("Box");
+        //    for (var Check of check) {
+        //        if (Check.checked) {
+        //            document.getElementById("remember").value = "true";
+        //        }
+        //    }
+            
+        //}
     </script>
 </head>
 <body>
-  <p>your pizza name is @ViewBag.pizza.Name</p>
-  <img src=@ViewBag.pizza.Images style="width:200px;height:200px;">
+    <p>your pizza name is @ViewBag.pizza.Name</p>
+    <img src=@ViewBag.pizza.Images style="width:200px;height:200px;">
     @using (Html.BeginForm("Index", "Toppings", FormMethod.Post))
     {
         @foreach (var item in Model)
         {
-            <input type="checkbox" name="Box" value=@item.ID>@item.Name
+            <input type="radio" name="box" value="@item.ID">@item.Name
+            <input type="Hidden" name="ID" value="@item.ID">
+            <input type="Hidden" name="name" value="@item.Name">
+            <input type="Hidden" name="price" value="@item.Price">
+            @Html.Hidden(@item.Name)
+            @Html.Hidden(@item.Price.ToString())
         }
-       <button type="submit" onclick="SendID()">Order Now</button>
+        <button type="submit" class="btn btn-primary">Submit</button>
+
     }
 </body>
 </html>
