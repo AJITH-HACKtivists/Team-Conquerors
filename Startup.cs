@@ -33,6 +33,7 @@ namespace PizzaHut
             services.AddScoped<IRepo<Users>, UsersRepo>();
             services.AddScoped<IRepo<Pizza>, PizzaRepo>();
             services.AddScoped<IRepo<Toppings>, ToppingsRepo>();
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,7 +52,7 @@ namespace PizzaHut
             app.UseRouting();
 
             app.UseAuthorization();
-           
+            app.UseSession();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

@@ -1,0 +1,36 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    <script>
+        alert("Added to Cart Successfully");
+
+    </script>
+
+    <p>@ViewBag.UserID</p>
+    <p>Pizza</p>
+    @for (int i = 0; i < TempData["Pizza"].ToString().Length; i++)
+    {
+        @TempData["Pizza"].ToString()[i];
+    }
+    <p>Toppings</p>
+    @if (TempData["Toppings"] != null)
+    {
+        @for (int i = 0; i < TempData["Toppings"].ToString().Length; i++)
+        {
+            @TempData["Toppings"].ToString()[i];
+        }
+    }
+
+    @Html.ActionLink("Go Back", "Pizzas", "Users")
+    @*<script>
+             window.location.href = "/Users/Pizzas";
+        </script>*@
+</body>
+</html>

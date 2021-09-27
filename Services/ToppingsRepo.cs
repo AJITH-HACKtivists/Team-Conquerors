@@ -8,6 +8,7 @@ namespace PizzaHut.Services
 {
     public class ToppingsRepo:IRepo<Toppings>
     {
+      
         private readonly PizzaHutContext _pizzaHutContext;
 
         public ToppingsRepo(PizzaHutContext pizzaHutContext)
@@ -37,7 +38,12 @@ namespace PizzaHut.Services
         }
         public Toppings Get(int ID)
         {
-            return null;
+            if (_pizzaHutContext.Toppings.Where(e => e.ID == ID).Any())
+            {
+                return _pizzaHutContext.Toppings.FirstOrDefault(e => e.ID == ID);
+            }
+            else
+                return null;
         }
     }
 }

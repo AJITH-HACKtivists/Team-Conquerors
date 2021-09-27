@@ -3,6 +3,11 @@
 *@
 @{
 }
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
 
 <!DOCTYPE html>
 
@@ -17,53 +22,46 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
-        .container-fluid{
-            display:flex;
-            flex-direction:row;
-            flex-wrap:wrap;
-            padding:10px;
+        .container-fluid {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            padding: 10px;
         }
-        .card #body{
-            overflow:hidden;
-           
+
+        .card #body {
+            overflow: hidden;
         }
+
         .card {
             overflow: hidden;
         }
-            .card #body img{
+
+            .card #body img {
                 transition: 0.5s ease-in;
             }
-       
-        
-        .card #body:hover img{
-            transform: scale(1.2);
-        }
+
+
+            .card #body:hover img {
+                transform: scale(1.2);
+            }
     </style>
 </head>
 <body>
-   
-    @if (TempData["UserID"] != null)
-    {
-        <div class="container-fluid">
-            @foreach (var item in Model)
-            {
-                <div class="card" style="height:300px;width:250px;margin:10px;">
-                    <div id="body">
-                    <img src=@item.Images alt="no image" style="width:250px; height:150px;">
-                    </div>
-                    <p>Price: @item.Price</p>
-                    <p>@item.Description</p>
-                    @Html.ActionLink("Order Now","Index","Toppings",new {ID=@item.ID,UserID=@TempData["UserID"]},new { htmlAttributes = new { @class = "btn btn-primary" , @style = "bottom:0;" } })
-                </div>
-            }
-        </div>
-    }
-            else
-            {
-                <script>alert("Please Login Or Register");
-                    window.location.href = "Users";
-    </script>
-            }
+    <p>@TempData.Peek("UserID")</p>
+    <div class="container-fluid">
+        @foreach (var item in Model)
+        {
 
+            <div class="card" style="height:300px;width:250px;margin:10px;">
+                <div id="body">
+                    <img src=@item.Images alt="no image" style="width:250px; height:150px;">
+                </div>
+                <p>Price: @item.Price</p>
+                <p>@item.Description</p>
+                @Html.ActionLink("Order Now", "GetToppings", "Users", new { ID = @item.ID}, new { htmlAttributes = new { @class = "btn btn-primary", @style = "bottom:0;" } })
+            </div>
+        }
+    </div>
 </body>
 </html>

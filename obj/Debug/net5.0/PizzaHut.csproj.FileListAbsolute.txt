@@ -146,9 +146,6 @@ C:\Users\Administrator\source\repos\PizzaHut\bin\Debug\net5.0\runtimes\win-arm\l
 C:\Users\Administrator\source\repos\PizzaHut\bin\Debug\net5.0\runtimes\win-arm64\lib\net5.0\dotnet-aspnet-codegenerator-design.exe
 C:\Users\Administrator\source\repos\PizzaHut\obj\Debug\net5.0\Razor\Views\Users\Index.cshtml.g.cs
 C:\Users\Administrator\source\repos\PizzaHut\obj\Debug\net5.0\Razor\Views\Users\Register.cshtml.g.cs
-C:\Users\Administrator\source\repos\PizzaHut\obj\Debug\net5.0\Razor\Views\Pizza\Index.cshtml.g.cs
-C:\Users\Administrator\source\repos\PizzaHut\obj\Debug\net5.0\Razor\Views\Toppings\Index.cshtml.g.cs
-C:\Users\Administrator\source\repos\PizzaHut\obj\Debug\net5.0\Razor\Views\Toppings\Details.cshtml.g.cs
 C:\Users\Administrator\source\repos\PizzaHut\bin\Debug\net5.0\BouncyCastle.Crypto.dll
 C:\Users\Administrator\source\repos\PizzaHut\bin\Debug\net5.0\Google.Protobuf.dll
 C:\Users\Administrator\source\repos\PizzaHut\bin\Debug\net5.0\K4os.Compression.LZ4.dll
@@ -164,3 +161,7 @@ C:\Users\Administrator\source\repos\PizzaHut\bin\Debug\net5.0\System.Web.WebPage
 C:\Users\Administrator\source\repos\PizzaHut\bin\Debug\net5.0\System.Web.WebPages.Razor.dll
 C:\Users\Administrator\source\repos\PizzaHut\bin\Debug\net5.0\System.Web.WebPages.dll
 C:\Users\Administrator\source\repos\PizzaHut\bin\Debug\net5.0\Microsoft.Web.Infrastructure.dll
+C:\Users\Administrator\source\repos\PizzaHut\obj\Debug\net5.0\Razor\Views\Users\GetToppings.cshtml.g.cs
+C:\Users\Administrator\source\repos\PizzaHut\obj\Debug\net5.0\Razor\Views\Users\Pizzas.cshtml.g.cs
+C:\Users\Administrator\source\repos\PizzaHut\obj\Debug\net5.0\Razor\Views\Users\Details.cshtml.g.cs
+C:\Users\Administrator\source\repos\PizzaHut\obj\Debug\net5.0\Razor\Views\Users\Get.cshtml.g.cs
