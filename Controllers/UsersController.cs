@@ -166,6 +166,14 @@ namespace PizzaHut.Controllers
                 {
                     PizzaList = JsonConvert.DeserializeObject<Dictionary<string, Pizza>>(HttpContext.Session.GetString("Pizza"));
                     ToppingsList = JsonConvert.DeserializeObject<Dictionary<string, Toppings>>(HttpContext.Session.GetString("Toppings"));
+                    foreach(var item in PizzaList.Keys)
+                    {
+                        if(PizzaList[item].ID==ID && ToppingsList.ContainsKey(item) && ToppingsList[item].ID == TopID)
+                        {
+                            _logger.LogInformation("Pizza Already Exists");
+                            return RedirectToAction("Pizzas", "Users");
+                        }
+                    }
                     Count = PizzaList.Count + 1;
                     PizzaList.Add((PizzaList.Count + 1).ToString(), _PRepo.Get((int)TempData["ID"]));
                     ToppingsList.Add(Count.ToString(),_toprepo.Get(TopID));
@@ -204,6 +212,15 @@ namespace PizzaHut.Controllers
                 if (HttpContext.Session.GetString("Pizza") != null)
                 {
                     PizzaList = JsonConvert.DeserializeObject<Dictionary<string, Pizza>>(HttpContext.Session.GetString("Pizza"));
+                    ToppingsList = JsonConvert.DeserializeObject<Dictionary<string, Toppings>>(HttpContext.Session.GetString("Toppings"));
+                    foreach (var item in PizzaList.Keys)
+                    {
+                        if (PizzaList[item].ID == ID && !ToppingsList.ContainsKey(item))
+                        {
+                            _logger.LogInformation("Pizza Already Exists");
+                             return RedirectToAction("Pizzas", "Users");
+                        }
+                    }
                     PizzaList.Add((PizzaList.Count + 1).ToString(), _PRepo.Get((int)TempData["ID"]));
                     HttpContext.Session.SetString("Pizza", JsonConvert.SerializeObject(PizzaList));
                     ViewBag.Pizza = HttpContext.Session.GetString("Pizza");
