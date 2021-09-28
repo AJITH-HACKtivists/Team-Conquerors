@@ -22,20 +22,31 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
-        .container-fluid {
+        .jumbotron-fluid {
             display: flex;
             flex-direction: row;
             flex-wrap: wrap;
-            padding: 10px;
+            width: 100%;
+            justify-content:center;
+           
         }
 
         .card #body {
             overflow: hidden;
+
         }
 
         .card {
-            overflow: hidden;
+            background-color:black;
+            display:flex;
+            flex-direction:row;
+            margin:10px;
+           
         }
+            .card .extra {
+                padding: 10px;
+                color:white;
+            }
 
             .card #body img {
                 transition: 0.5s ease-in;
@@ -45,22 +56,34 @@
             .card #body:hover img {
                 transform: scale(1.2);
             }
+            .btn{
+                background-color:none;
+                border:2px solid yellow;
+            }
     </style>
 </head>
-<body>
+<body style="background-image:url('/images/bg_4.jpg')">
     <p>@TempData.Peek("UserID")</p>
-    <div class="container-fluid">
+    <div class="jumbotron-fluid">
         @foreach (var item in Model)
         {
 
-            <div class="card" style="height:300px;width:250px;margin:10px;">
-                <div id="body">
-                    <img src=@item.Images alt="no image" style="width:250px; height:150px;">
-                </div>
-                <p>Price: @item.Price</p>
-                <p>@item.Description</p>
-                @Html.ActionLink("Order Now", "GetToppings", "Users", new { ID = @item.ID}, new { htmlAttributes = new { @class = "btn btn-primary", @style = "bottom:0;" } })
+        <div class="card" style="height:250px;width:400px">
+            <div id="body" style=" height:250px;width:200px;">
+                <img src=@item.Images alt="no image" style="width:200px; height:250px;">
             </div>
+            <div class="extra" style="width:200px;">
+                <p style="font-weight:bold">@item.Name</p>
+
+                <p style="font-size:15px; font-family:'Times New Roman', Times, serif">@item.Description</p>
+
+                <p >$ @item.Price    <a href="@Url.Action("GetToppings","Users",new {ID=item.ID })" style="margin-bottom:10px;">
+                    <button type="button" class="btn" style=" color: white;">
+                        Order Now
+                    </button>
+                </a></p>
+            </div>
+        </div>
         }
     </div>
 </body>

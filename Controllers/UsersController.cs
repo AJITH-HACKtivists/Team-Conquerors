@@ -64,7 +64,7 @@ namespace PizzaHut.Controllers
                     HttpContext.Session.SetString("UserID", user.UserID);
                     //TempData["CustID"] = users.ID;
                     ViewBag.UserID = users.UserID;
-                    return RedirectToAction("Pizzas", "Users", new { UsersID = user.UserID });
+                    return RedirectToAction("Pizzas", "Users");
                 }
                 else
                 {
@@ -122,7 +122,7 @@ namespace PizzaHut.Controllers
                     HttpContext.Session.SetString("UserID", user.UserID);
                     ViewBag.Success = "Registeration Successfull";
                     
-                    return RedirectToAction("Pizzas", "Users",new { UsersID=user.UserID});
+                    return RedirectToAction("Pizzas", "Users");
                 }
                 else
                 {
@@ -141,7 +141,7 @@ namespace PizzaHut.Controllers
         [HttpGet]
         public IActionResult GetToppings(int ID)
         {
-            TempData["ID"] = ID;
+            TempData["ID"]=ID;
             TempData.Keep("ID");
             pizza = _PRepo.Get(ID);
             ViewBag.pizza = _PRepo.Get(ID);
@@ -151,24 +151,25 @@ namespace PizzaHut.Controllers
             return View(checks);
         }
         [HttpPost]
-        public IActionResult Get(Check check)
+        public IActionResult GetToppings(int ID,Check check)
         {
-            int ID = Convert.ToInt32(HttpContext.Session.GetString("ID"));
+            _logger.LogInformation("Pizza ID is "+ID.ToString());
+            int IDD = Convert.ToInt32(HttpContext.Session.GetString("ID"));
             int TopID = check.checks;
-            _logger.LogInformation("ToppingID"+check.checks.ToString());
-            _logger.LogInformation("Pizza Id is" + ID);
+            _logger.LogInformation("ToppingID" + check.checks.ToString());
+            _logger.LogInformation("Pizza Id is" + IDD);
             if (check.checks != 0)
             {
-                _logger.LogInformation("ToppingID" + check.checks.ToString());
-                _logger.LogInformation("Topping name" + _toprepo.Get(TopID).Name);
+                _logger.LogInformation("ToppingID  " + check.checks.ToString());
+                _logger.LogInformation("Topping name " + _toprepo.Get(TopID).Name);
                 //total += _PRepo.Get(ID).Price + _toprepo.Get(check.checks).Price;
-                if (HttpContext.Session.GetString("Pizza") != null)
+                if (HttpContext.Session.GetString("Pizza") != null && HttpContext.Session.GetString("Toppings")!=null)
                 {
                     PizzaList = JsonConvert.DeserializeObject<Dictionary<string, Pizza>>(HttpContext.Session.GetString("Pizza"));
                     ToppingsList = JsonConvert.DeserializeObject<Dictionary<string, Toppings>>(HttpContext.Session.GetString("Toppings"));
-                    foreach(var item in PizzaList.Keys)
+                    foreach (var item in PizzaList.Keys)
                     {
-                        if(PizzaList[item].ID==ID && ToppingsList.ContainsKey(item) && ToppingsList[item].ID == TopID)
+                        if (PizzaList[item].ID == ID && ToppingsList.ContainsKey(item) && ToppingsList[item].ID == TopID)
                         {
                             _logger.LogInformation("Pizza Already Exists");
                             return RedirectToAction("Pizzas", "Users");
@@ -176,32 +177,40 @@ namespace PizzaHut.Controllers
                     }
                     Count = PizzaList.Count + 1;
                     PizzaList.Add((PizzaList.Count + 1).ToString(), _PRepo.Get((int)TempData["ID"]));
-                    ToppingsList.Add(Count.ToString(),_toprepo.Get(TopID));
+                    ToppingsList.Add(Count.ToString(), _toprepo.Get(TopID));
                     //TempData["Pizza"] = JsonConvert.SerializeObject(PizzaList);
                     //TempData["Toppings"] = JsonConvert.SerializeObject(ToppingsList);
                     HttpContext.Session.SetString("Pizza", JsonConvert.SerializeObject(PizzaList));
                     HttpContext.Session.SetString("Toppings", JsonConvert.SerializeObject(ToppingsList));
-                    TempData["Pizza"] = HttpContext.Session.GetString("Pizza");
-                    TempData["Toppings"] = HttpContext.Session.GetString("Toppings");
-                    TempData.Keep("Toppings");
-                    TempData.Keep("Pizza");
+                    TempData["Added"] = "Successfully Added";
+                    return RedirectToAction("Details", "Users");
+                }
+                else if(HttpContext.Session.GetString("Pizza")!=null && HttpContext.Session.GetString("Toppings")==null)
+                {
+                    PizzaList = JsonConvert.DeserializeObject<Dictionary<string,Pizza>>(HttpContext.Session.GetString("Pizza"));
+                    ToppingsList = new Dictionary<string, Toppings>();
+                    PizzaList.Add((PizzaList.Count + 1).ToString(), _PRepo.Get((int)TempData.Peek("ID")));
+                    ToppingsList.Add((PizzaList.Count + 1).ToString(), _toprepo.Get(TopID));
+                    Count = 1;
+                    //TempData["Pizza"] = JsonConvert.SerializeObject(PizzaList);
+                    //TempData["Toppings"] = JsonConvert.SerializeObject(ToppingsList);
+                    HttpContext.Session.SetString("Pizza", JsonConvert.SerializeObject(PizzaList));
+                    HttpContext.Session.SetString("Toppings", JsonConvert.SerializeObject(ToppingsList));
+                    TempData["Added"] = "Successfully Added";
                     return RedirectToAction("Details", "Users");
                 }
                 else
                 {
                     PizzaList = new Dictionary<string, Pizza>();
                     ToppingsList = new Dictionary<string, Toppings>();
-                    PizzaList.Add((Count + 1).ToString(), _PRepo.Get((int)TempData.Peek("ID")));
-                    ToppingsList.Add((Count + 1).ToString(), _toprepo.Get(TopID));
+                    PizzaList.Add((PizzaList.Count + 1).ToString(), _PRepo.Get((int)TempData.Peek("ID")));
+                    ToppingsList.Add((PizzaList.Count).ToString(), _toprepo.Get(TopID));
                     Count = 1;
                     //TempData["Pizza"] = JsonConvert.SerializeObject(PizzaList);
                     //TempData["Toppings"] = JsonConvert.SerializeObject(ToppingsList);
                     HttpContext.Session.SetString("Pizza", JsonConvert.SerializeObject(PizzaList));
                     HttpContext.Session.SetString("Toppings", JsonConvert.SerializeObject(ToppingsList));
-                    TempData["Toppings"] = HttpContext.Session.GetString("Toppings");
-                    TempData["Pizza"] = HttpContext.Session.GetString("Pizza");
-                    TempData.Keep("Pizza");
-                    TempData.Keep("Toppings");
+                    TempData["Added"] = "Successfully Added";
                     return RedirectToAction("Details", "Users");
                 }
             }
@@ -218,30 +227,28 @@ namespace PizzaHut.Controllers
                         if (PizzaList[item].ID == ID && !ToppingsList.ContainsKey(item))
                         {
                             _logger.LogInformation("Pizza Already Exists");
-                             return RedirectToAction("Pizzas", "Users");
+                            return RedirectToAction("Pizzas", "Users");
                         }
                     }
-                    PizzaList.Add((PizzaList.Count + 1).ToString(), _PRepo.Get((int)TempData["ID"]));
+                    PizzaList.Add((PizzaList.Count + 1).ToString(), _PRepo.Get((int)TempData.Peek("ID")));
                     HttpContext.Session.SetString("Pizza", JsonConvert.SerializeObject(PizzaList));
-                    ViewBag.Pizza = HttpContext.Session.GetString("Pizza");
+                    //ViewBag.Pizza = HttpContext.Session.GetString("Pizza");
                     TempData["Pizza"] = HttpContext.Session.GetString("Pizza");
                     TempData.Keep("Pizza");
+                    TempData["Added"] = "Successfully Added";
                     return RedirectToAction("Details", "Users");
                 }
                 else
                 {
                     PizzaList = new Dictionary<string, Pizza>();
-                    PizzaList.Add((PizzaList.Count + 1).ToString(), _PRepo.Get((int)TempData["ID"]));
+                    PizzaList.Add((PizzaList.Count + 1).ToString(), _PRepo.Get((int)TempData.Peek("ID")));
                     HttpContext.Session.SetString("Pizza", JsonConvert.SerializeObject(PizzaList));
-                    ViewBag.Pizza = HttpContext.Session.GetString("Pizza");
-                    TempData["Pizza"] = HttpContext.Session.GetString("Pizza");
-                    TempData.Keep("Pizza");
+                    TempData["Added"] = "Successfully Added";
                     return RedirectToAction("Details", "Users");
 
                 }
 
             }
-
 
         }
 
@@ -251,9 +258,35 @@ namespace PizzaHut.Controllers
             _logger.LogInformation(total.ToString());
             PizzaList= JsonConvert.DeserializeObject<Dictionary<string, Pizza>>(HttpContext.Session.GetString("Pizza"));
             ToppingsList = JsonConvert.DeserializeObject<Dictionary<string, Toppings>>(HttpContext.Session.GetString("Toppings"));
-            _logger.LogInformation("List pizza size"+PizzaList.Count.ToString());
-            _logger.LogInformation("List Toppings Size"+ToppingsList.Count.ToString());
+            ViewData["Pizza"] = PizzaList;
+            ViewData["Toppings"]= ToppingsList;
+            _logger.LogInformation("List pizza size "+PizzaList.Count.ToString());
+            _logger.LogInformation("List Toppings Size "+ToppingsList.Count.ToString());
             return View();
+        }
+        public IActionResult Delete(string ID)
+        {
+            PizzaList = JsonConvert.DeserializeObject<Dictionary<string,Pizza>>(HttpContext.Session.GetString("Pizza"));
+            ToppingsList = JsonConvert.DeserializeObject<Dictionary<string, Toppings>>(HttpContext.Session.GetString("Pizza"));
+            if (PizzaList.ContainsKey(ID))
+            {
+                PizzaList.Remove(ID);
+                if (ToppingsList.ContainsKey(ID))
+                {
+                    ToppingsList.Remove(ID);
+                    HttpContext.Session.SetString("Pizza", JsonConvert.SerializeObject(PizzaList));
+                    HttpContext.Session.SetString("Toppings", JsonConvert.SerializeObject(ToppingsList));
+                   
+                    return RedirectToAction("Details", "Users");
+                }
+                HttpContext.Session.SetString("Pizza", JsonConvert.SerializeObject(PizzaList));
+                HttpContext.Session.SetString("Toppings", JsonConvert.SerializeObject(ToppingsList));
+               
+                return RedirectToAction("Details", "Users");
+            }
+           
+            return RedirectToAction("Details", "Users");
+
         }
         public bool ValidateEmailAddress(string email)
         {

@@ -163,7 +163,7 @@
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="form-group">
                             <label asp-for="UserID" class="control-label">Email</label>
-                            <input asp-for="UserID" class="form-control" placeholder="Enter Email" />
+                            <input asp-for="UserID" class="form-control" placeholder="Enter Email" type="email"/>
                             <span asp-validation-for="UserID" class="text-danger">
                                 @if (ViewBag.ErrorUser != null)
                                 {@ViewBag.ErrorUser}
@@ -171,7 +171,7 @@
                         </div>
                         <div class="form-group">
                             <label asp-for="Password" class="control-label"></label>
-                            <input asp-for="Password" class="form-control" placeholder="Enter Password" />
+                            <input asp-for="Password" class="form-control" placeholder="Enter Password" type="password" />
                             <span asp-validation-for="Password" class="text-danger">
                                 @if (ViewBag.ErrorPassword != null)
                                 {

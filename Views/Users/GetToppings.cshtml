@@ -21,13 +21,12 @@
     </script>
 </head>
 <body>
-    @*<p>@ViewBag.UserID</p>
-        <p>your pizza name is @ViewBag.pizza.Name</p>
-        <img src=@ViewBag.pizza.Images style="width:200px;height:200px;">*@
-    <form asp-controller="Users" asp-action="Get" method="post">
-        @foreach(var item in Model.Toppings)
+    <p>@TempData.Peek("UserID")</p>
+    <form asp-controller="Users" asp-action="GetToppings" method="post">
+
+        @foreach (var item in Model.Toppings)
         {
-          @Html.RadioButtonFor(m=>m.checks,@item.ID)@item.Name
+            @Html.RadioButtonFor(m => m.checks, @item.ID)@item.Name
         }
         <button type="submit" class="btn btn-primary" onclick="Find()">Submit</button>
     </form>
@@ -38,7 +37,7 @@
                 if (box[i].checked)
                     alert(box[i].value);
             }
-    }
+        }
     </script>
 </body>
 </html>

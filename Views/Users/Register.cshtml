@@ -123,7 +123,7 @@
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="form-group">
                             <label asp-for="UserID" class="control-label">EmailID</label>
-                            <input asp-for="UserID" class="form-control" placeholder="Enter EmailID" />
+                            <input asp-for="UserID" class="form-control" placeholder="Enter EmailID" type="email"/>
                             <p>
                                 @if (ViewBag.ErrorUser != null)
                                 {@ViewBag.ErrorUser}
@@ -131,7 +131,7 @@
                         </div>
                         <div class="form-group">
                             <label asp-for="Name" class="control-label">Name</label>
-                            <input asp-for="Name" class="form-control" placeholder="Enter Name" />
+                            <input asp-for="Name" class="form-control" placeholder="Enter Name" type="text"/>
                             <p>
                                 @if (ViewBag.ErrorName != null)
                                 {@ViewBag.ErrorName}
@@ -139,7 +139,7 @@
                         </div>
                         <div class="form-group">
                             <label asp-for="Password" class="control-label">Password</label>
-                            <input asp-for="Password" class="form-control" placeholder="Enter Password" />
+                            <input asp-for="Password" class="form-control" placeholder="Enter Password" type="password"/>
                             <p>
                                 @if (ViewBag.ErrorPassword != null)
                                 {@ViewBag.ErrorPassword}
@@ -147,7 +147,7 @@
                         </div>
                         <div class="form-group">
                             <label asp-for="Phone" class="control-label">Phone Number</label>
-                            <input asp-for="Phone" class="form-control" placeholder="Enter Phone Number" />
+                            <input asp-for="Phone" class="form-control" placeholder="Enter Phone Number" type="number"/>
                             <p>
                                 @if (ViewBag.ErrorPhone != null)
                                 {@ViewBag.ErrorPhone}
@@ -155,7 +155,7 @@
                         </div>
                         <div class="form-group">
                             <label asp-for="Address" class="control-label">Address</label>
-                            <input asp-for="Address" class="form-control" placeholder="Enter Address" />
+                            <input asp-for="Address" class="form-control" placeholder="Enter Address" type="text"/>
                             <p>
                                 @if (ViewBag.ErrorAddress != null)
                                 {@ViewBag.ErrorAddress}

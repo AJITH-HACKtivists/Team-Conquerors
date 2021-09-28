@@ -2,35 +2,65 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+    var DictPizza = (Dictionary<string, Pizza>)ViewData["Pizza"];
+    var DictToppings = (Dictionary<string, Toppings>)ViewData["Toppings"];
 }
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title></title>
 </head>
 <body>
-    <script>
-        alert("Added to Cart Successfully");
+   @if (TempData["Added"] != null)
+    {
+        <script>
+            alert("Ädded To Cart Successfully");
+        </script>
+    }
 
-    </script>
 
-    <p>@ViewBag.UserID</p>
+
+
+    <p>@TempData.Peek("UserID")</p>
     <p>Pizza</p>
-    @for (int i = 0; i < TempData["Pizza"].ToString().Length; i++)
-    {
-        @TempData["Pizza"].ToString()[i];
-    }
-    <p>Toppings</p>
-    @if (TempData["Toppings"] != null)
-    {
-        @for (int i = 0; i < TempData["Toppings"].ToString().Length; i++)
-        {
-            @TempData["Toppings"].ToString()[i];
-        }
-    }
+    <table class="table table-striped table-dark">
+        <thead>
+            <tr>
+                <th>Pizza Id</th>
+                <th>Pizza Name</th>
+                <th>Toppings ID</th>
+                <th>Toppings Name</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
 
+            @foreach (var item in DictPizza.Keys)
+            {
+                <tr>
+                    <td>
+                        @DictPizza[item].ID
+                    </td>
+                    <td>
+                        @DictPizza[item].Name
+                    </td>
+                    @if (DictToppings.ContainsKey(item))
+                    {
+                        <td>@DictToppings[item].ID</td>
+                        <td>@DictToppings[item].Name</td>
+                        <td>@((@Convert.ToInt32(DictPizza[item].Price)+@Convert.ToInt32(DictToppings[item].Price)))</td>
+                    }
+                    else
+                    {
+                        <td rowspan="2"> NO Toppings</td>
+                        <td>@DictPizza[item].Price</td>
+                    }
+                    <td><a href="@Url.Action("Delete","Users",new {ID=@item})"><button class="btn btn-warning">Delete</button></a></td>
+                </tr>
+
+            }
+        </tbody>
+    </table>
     @Html.ActionLink("Go Back", "Pizzas", "Users")
-    @*<script>
-             window.location.href = "/Users/Pizzas";
-        </script>*@
+
 </body>
 </html>
