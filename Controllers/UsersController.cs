@@ -257,11 +257,19 @@ namespace PizzaHut.Controllers
              ViewBag.UserID=HttpContext.Session.GetString("UserID");
             _logger.LogInformation(total.ToString());
             PizzaList= JsonConvert.DeserializeObject<Dictionary<string, Pizza>>(HttpContext.Session.GetString("Pizza"));
-            ToppingsList = JsonConvert.DeserializeObject<Dictionary<string, Toppings>>(HttpContext.Session.GetString("Toppings"));
+            if (HttpContext.Session.GetString("Toppings")!=null)
+            {
+                ToppingsList = JsonConvert.DeserializeObject<Dictionary<string, Toppings>>(HttpContext.Session.GetString("Toppings"));
+                ViewData["Toppings"] = ToppingsList;
+                _logger.LogInformation("List Toppings Size " + ToppingsList.Count.ToString());
+            }
+            else
+            {
+                ViewData["Toppings"] = null;
+            }
             ViewData["Pizza"] = PizzaList;
-            ViewData["Toppings"]= ToppingsList;
             _logger.LogInformation("List pizza size "+PizzaList.Count.ToString());
-            _logger.LogInformation("List Toppings Size "+ToppingsList.Count.ToString());
+         
             return View();
         }
         public IActionResult Delete(string ID)

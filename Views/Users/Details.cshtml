@@ -3,8 +3,10 @@
 *@
 @{
     var DictPizza = (Dictionary<string, Pizza>)ViewData["Pizza"];
-    var DictToppings = (Dictionary<string, Toppings>)ViewData["Toppings"];
-}
+    var DictToppings=(Dictionary<string, Toppings>)ViewData["Toppings"];
+    
+  }
+    
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title></title>
@@ -22,7 +24,7 @@
 
     <p>@TempData.Peek("UserID")</p>
     <p>Pizza</p>
-    <table class="table table-striped table-dark">
+    <table class="table table-striped table-dark" style="text-align:center">
         <thead>
             <tr>
                 <th>Pizza Id</th>
@@ -36,14 +38,16 @@
 
             @foreach (var item in DictPizza.Keys)
             {
-                <tr>
-                    <td>
-                        @DictPizza[item].ID
-                    </td>
-                    <td>
-                        @DictPizza[item].Name
-                    </td>
-                    @if (DictToppings.ContainsKey(item))
+            <tr>
+                <td>
+                    @DictPizza[item].ID
+                </td>
+                <td>
+                    @DictPizza[item].Name
+                </td>
+                @if (DictToppings != null)
+                {
+                    if (DictToppings.ContainsKey(item))
                     {
                         <td>@DictToppings[item].ID</td>
                         <td>@DictToppings[item].Name</td>
@@ -51,11 +55,18 @@
                     }
                     else
                     {
-                        <td rowspan="2"> NO Toppings</td>
+                        <td colspan="2"> - </td>
                         <td>@DictPizza[item].Price</td>
                     }
-                    <td><a href="@Url.Action("Delete","Users",new {ID=@item})"><button class="btn btn-warning">Delete</button></a></td>
-                </tr>
+
+                }
+                else
+                {
+                    <td colspan="2"> - </td>
+                    <td>@DictPizza[item].Price</td>
+                }
+                <td><a href="@Url.Action("Delete","Users",new {ID=@item})"><button class="btn btn-warning">Delete</button></a></td>
+            </tr>
 
             }
         </tbody>
