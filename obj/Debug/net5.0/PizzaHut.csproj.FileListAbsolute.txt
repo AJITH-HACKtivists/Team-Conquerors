@@ -165,3 +165,6 @@ C:\Users\Administrator\source\repos\PizzaHut\obj\Debug\net5.0\Razor\Views\Users\
 C:\Users\Administrator\source\repos\PizzaHut\obj\Debug\net5.0\Razor\Views\Users\Pizzas.cshtml.g.cs
 C:\Users\Administrator\source\repos\PizzaHut\obj\Debug\net5.0\Razor\Views\Users\Details.cshtml.g.cs
 C:\Users\Administrator\source\repos\PizzaHut\obj\Debug\net5.0\Razor\Views\Users\Get.cshtml.g.cs
+C:\Users\Administrator\source\repos\PizzaHut\obj\Debug\net5.0\Razor\Views\Pizza\Index.cshtml.g.cs
+C:\Users\Administrator\source\repos\PizzaHut\obj\Debug\net5.0\Razor\Views\Toppings\Details.cshtml.g.cs
+C:\Users\Administrator\source\repos\PizzaHut\obj\Debug\net5.0\Razor\Views\Toppings\GetToppings.cshtml.g.cs

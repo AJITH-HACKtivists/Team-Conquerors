@@ -3,10 +3,10 @@
 *@
 @{
     var DictPizza = (Dictionary<string, Pizza>)ViewData["Pizza"];
-    var DictToppings=(Dictionary<string, Toppings>)ViewData["Toppings"];
-    
-  }
-    
+    var DictToppings = (Dictionary<string, Toppings>)ViewData["Toppings"];
+
+}
+
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title></title>
@@ -65,13 +65,13 @@
                         <td colspan="2"> - </td>
                         <td>@DictPizza[item].Price</td>
                     }
-                    <td><a href="@Url.Action("Delete","Users",new {ID=@item})"><button class="btn btn-warning">Delete</button></a></td>
+                    <td><a href="@Url.Action("Delete","Toppings",new {ID=@item})"><button class="btn btn-warning">Delete</button></a></td>
                 </tr>
 
             }
         </tbody>
     </table>
-    @Html.ActionLink("Go Back", "Pizzas", "Users")
+    @Html.ActionLink("Go Back", "Index", "Pizza")
     <a href="@Url.Action("OrerNow","Users")"><button class="btn btn-warning">Order Now</button></a>
 </body>
 </html>
