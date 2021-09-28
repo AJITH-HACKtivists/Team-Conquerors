@@ -33,6 +33,8 @@ namespace PizzaHut
             services.AddScoped<IRepo<Users>, UsersRepo>();
             services.AddScoped<IRepo<Pizza>, PizzaRepo>();
             services.AddScoped<IRepo<Toppings>, ToppingsRepo>();
+            services.AddScoped<IRepo<Orders>, OrdersRepo>();
+            services.AddScoped<IRepo<OrderDetails>, OrderDetailsRepo>();
             services.AddSession();
         }
 

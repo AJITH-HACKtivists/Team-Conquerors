@@ -62,7 +62,8 @@ namespace PizzaHut.Controllers
                     TempData["UserID"] = users.UserID;
                     TempData.Keep("UserID");
                     HttpContext.Session.SetString("UserID", user.UserID);
-                    //TempData["CustID"] = users.ID;
+                    TempData["CustID"] = users.ID;
+                    TempData.Keep("CustID");
                     ViewBag.UserID = users.UserID;
                     return RedirectToAction("Index", "Pizza");
                 }
