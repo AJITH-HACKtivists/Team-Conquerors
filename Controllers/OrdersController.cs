@@ -36,7 +36,10 @@ namespace PizzaHut.Controllers
         {
             Orders order;
             PizzaList = JsonConvert.DeserializeObject<Dictionary<string, Cart>>(HttpContext.Session.GetString("Pizza"));
-            ToppingsList= JsonConvert.DeserializeObject<Dictionary<string, Toppings>>(HttpContext.Session.GetString("Toppings"));
+            if (HttpContext.Session.GetString("Toppings") != null)
+                ToppingsList = JsonConvert.DeserializeObject<Dictionary<string, Toppings>>(HttpContext.Session.GetString("Toppings"));
+            else
+                ToppingsList = null;
 
             foreach (var item in PizzaList.Keys)
             {
@@ -74,9 +77,13 @@ namespace PizzaHut.Controllers
                 }
             }
             PizzaList.Clear();
-            ToppingsList.Clear();
             HttpContext.Session.SetString("Pizza", JsonConvert.SerializeObject(PizzaList));
-            HttpContext.Session.SetString("Toppings", JsonConvert.SerializeObject(ToppingsList));
-        }
+            if (ToppingsList != null)
+            {
+                ToppingsList.Clear();
+                HttpContext.Session.SetString("Toppings", JsonConvert.SerializeObject(ToppingsList));
+            }
+           
+         }
     }
 }

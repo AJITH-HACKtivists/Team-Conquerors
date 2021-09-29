@@ -64,6 +64,8 @@ namespace PizzaHut.Controllers
                     HttpContext.Session.SetString("UserID", user.UserID);
                     TempData["CustID"] = users.ID;
                     TempData.Keep("CustID");
+                    TempData["Address"] = users.Address;
+                    TempData.Keep("Address");
                     ViewBag.UserID = users.UserID;
                     return RedirectToAction("Index", "Pizza");
                 }
@@ -115,21 +117,29 @@ namespace PizzaHut.Controllers
                     ViewBag.Error = "User Already Exists";
                     return View();
                 }
-                else if (_repo.Add(user) != null)
+                else 
                 {
-                   
-                    TempData["UserID"] = users.UserID;
-                    TempData.Keep("UserID");
-                    HttpContext.Session.SetString("UserID", user.UserID);
-                    ViewBag.Success = "Registeration Successfull";
-                    
-                    return RedirectToAction("Index", "Pizza");
+                    Users userss=_repo.Add(user);
+                    if (userss!= null)
+                    {
+                        TempData["UserID"] = userss.UserID;
+                        TempData.Keep("UserID");
+                        TempData["CustID"]= userss.ID;
+                        TempData.Keep("CustID");
+                        TempData["Address"] = userss.Address;
+                        TempData.Keep("Address");
+                        HttpContext.Session.SetString("UserID", user.UserID);
+                        ViewBag.Success = "Registeration Successfull";
+                        return RedirectToAction("Index", "Pizza");
+                    }
+
+                    else
+                    {
+                        ViewBag.Error = "Some Error Occured";
+                        return View();
+                    }
                 }
-                else
-                {
-                    ViewBag.Error = "Some Error Occured";
-                    return View();
-                }
+                
 
             }
             return View();

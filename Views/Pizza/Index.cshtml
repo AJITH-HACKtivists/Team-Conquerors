@@ -62,30 +62,40 @@
     </style>
 </head>
 <body style="background-image:url('/images/bg_4.jpg')">
-    <p>@TempData.Peek("UserID")</p>
-    <div class="jumbotron-fluid">
-        @foreach (var item in Model)
-        {
+    @if (TempData.Peek("UserID") != null)
+    {
+        <p style="color:white">@TempData.Peek("UserID")</p>
+        <div class="jumbotron-fluid">
+            @foreach (var item in Model)
+            {
 
-            <div class="card" style="height:250px;width:400px">
-                <div id="body" style=" height:250px;width:200px;">
-                    <img src=@item.Images alt="no image" style="width:200px; height:250px;">
+                <div class="card" style="height:250px;width:400px">
+                    <div id="body" style=" height:250px;width:200px;">
+                        <img src=@item.Images alt="no image" style="width:200px; height:250px;">
+                    </div>
+                    <div class="extra" style="width:200px;">
+                        <p style="font-weight:bold">@item.Name</p>
+
+                        <p style="font-size:15px; font-family:'Times New Roman', Times, serif">@item.Description</p>
+
+                        <p>
+                            $ @item.Price    <a href="@Url.Action("GetToppings","Toppings",new {ID=item.ID })" style="margin-bottom:10px;">
+                                <button type="button" class="btn" style=" color: white;">
+                                    Order Now
+                                </button>
+                            </a>
+                        </p>
+                    </div>
                 </div>
-                <div class="extra" style="width:200px;">
-                    <p style="font-weight:bold">@item.Name</p>
+            }
+        </div>
+    }
+    else
+    {
+<script>
+    alert("Please login or register");
+    window.location.href = "/Users";
+</script>}
 
-                    <p style="font-size:15px; font-family:'Times New Roman', Times, serif">@item.Description</p>
-
-                    <p>
-                        $ @item.Price    <a href="@Url.Action("GetToppings","Toppings",new {ID=item.ID })" style="margin-bottom:10px;">
-                            <button type="button" class="btn" style=" color: white;">
-                                Order Now
-                            </button>
-                        </a>
-                    </p>
-                </div>
-            </div>
-        }
-    </div>
 </body>
 </html>

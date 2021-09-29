@@ -4,6 +4,7 @@
 @{
     var DictPizza = (Dictionary<string, Cart>)ViewData["Pizza"];
     var DictToppings = (Dictionary<string, Toppings>)ViewData["Toppings"];
+    var total = 0;
 
 }
 
@@ -53,11 +54,13 @@
                         <td>@DictToppings[item].ID</td>
                         <td>@DictToppings[item].Name</td>
                         <td>@((@Convert.ToInt32(DictPizza[item].Pizza.Price)+@Convert.ToInt32(DictToppings[item].Price))*Convert.ToInt32(DictPizza[item].Qty))</td>
+                        //@(total+=(@Convert.ToInt32(DictPizza[item].Pizza.Price) + @Convert.ToInt32(DictToppings[item].Price)) * Convert.ToInt32(DictPizza[item].Qty));
                     }
                     else
                     {
                         <td colspan="2"> - </td>
                         <td>@(@Convert.ToInt32(DictPizza[item].Pizza.Price)*@Convert.ToInt32(DictPizza[item].Qty))</td>
+                        //@(total += (@Convert.ToInt32(DictPizza[item].Pizza.Price) * @Convert.ToInt32(DictPizza[item].Qty));
                     }
 
                 }
@@ -70,11 +73,16 @@
                 <td><a href="@Url.Action("Delete","Toppings",new {ID=@item})"><button class="btn btn-warning">Delete</button></a></td>
                 <td><a href="@Url.Action("Add","Toppings",new {ID=@item})"><button class="btn btn-warning">Add</button></a></td>
             </tr>
-
+            
             }
+            <tr><td colspan="2">Grand Total</td>
+                <td colspan="5" style="text-align:right">
+                @ViewData["Price"]
+                </td>
+            </tr>
         </tbody>
     </table>
     @Html.ActionLink("Go Back", "Index", "Pizza")
-    <a href="@Url.Action("Index","Orders")"><button class="btn btn-warning">Order Now</button></a>
+    <a href="@Url.Action("Index","Orders")"><button class="btn btn-warning">Confirm Order</button></a>
 </body>
 </html>

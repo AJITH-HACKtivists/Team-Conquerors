@@ -16,6 +16,7 @@ namespace PizzaHut.Controllers
         public Pizza pizza;
         static int Count = 0;
         static double total = 0;
+        static double total1 = 0;
         public Dictionary<string, Toppings> ToppingsList;
         public Dictionary<string, Cart> PizzaList;
         private readonly IRepo<Users> _repo;
@@ -163,6 +164,7 @@ namespace PizzaHut.Controllers
         }
         public IActionResult Details()
         {
+            total1 = 0;
             ViewBag.UserID = HttpContext.Session.GetString("UserID");
             _logger.LogInformation(total.ToString());
             PizzaList = JsonConvert.DeserializeObject<Dictionary<string, Cart>>(HttpContext.Session.GetString("Pizza"));
@@ -176,6 +178,26 @@ namespace PizzaHut.Controllers
             {
                 ViewData["Toppings"] = null;
             }
+            foreach (var item in PizzaList.Keys)
+            {
+                if(HttpContext.Session.GetString("Toppings") != null)
+                {
+                    if (ToppingsList.ContainsKey(item))
+                    {
+                        total1=total1+ ((PizzaList[item].Pizza.Price + ToppingsList[item].Price) * PizzaList[item].Qty);
+                    }
+                    else
+                    {
+                        total1 = total1 + ((PizzaList[item].Pizza.Price) * PizzaList[item].Qty);
+                    }
+                }
+                else
+                {
+                    total1=total1+((PizzaList[item].Pizza.Price) * PizzaList[item].Qty);
+                }
+
+            }
+            ViewData["Price"] = total1;
             ViewData["Pizza"] = PizzaList;
             _logger.LogInformation("List pizza size " + PizzaList.Count.ToString());
 
