@@ -21,7 +21,7 @@ namespace PizzaHut.Services
             {
                 _pizzaHutContext.Orders.Add(k);
                 _pizzaHutContext.SaveChanges();
-                return _pizzaHutContext.Orders.Last(e=>e.UserID==k.UserID);
+                return _pizzaHutContext.Orders.Where(e=>e.UserID==k.UserID).ToList()[_pizzaHutContext.Orders.Where(e => e.UserID == k.UserID).ToList().Count-1];
             }
             catch (DbUpdateConcurrencyException ducex)
             {

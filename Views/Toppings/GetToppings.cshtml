@@ -2,12 +2,35 @@
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
-@{
-}
+@{ }
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+
     <title></title>
+    <style>
+        body {
+            background-image: url('/images/Toppings.jpg');
+            background-size: cover;
+        }
+
+        .btn {
+            width: 200px;
+            border-radius: 20px;
+            color: aqua;
+            font-weight: bold;
+            border: 2px solid #1efffe;
+            transition: 0.5s ease-in-out;
+            margin-left: 50px;
+        }
+
+            .btn:hover {
+                color: white;
+                box-shadow: 0 0 20px 0 #1efffe;
+                background: linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1);
+            }
+    </style>
     <script>
+
         function SendID() {
             var array = [];
             var check = document.getElementsByName("box");
@@ -18,26 +41,39 @@
             }
 
         }
+
     </script>
+
+
 </head>
 <body>
-    <p>@TempData.Peek("UserID")</p>
-    <form asp-controller="Toppings" asp-action="GetToppings" method="post">
+    <div class="container">
+        <div class="row">
+            <div col-sm-6 col-md="6">
+                <h4 style="color: #1efffe">@ViewBag.pizza.Name </h4>
+                <p>your pizza name is @ViewBag.pizza.Name</p>
+                <img src=@ViewBag.pizza.Images style="width:300px;height:300px;">
+                 <h3 style="color: #1efffe">Please select the Toppings </h3>
+         </div>
+            <div class="col-sm-6 col-md-6" >
+                <form asp-controller="Toppings" asp-action="GetToppings" method="post" style="align-items:center; margin-top:70px; text-align:center ">
+                    @foreach (var item in Model.Toppings)
+                    {
+            <br>
+                            <div class="form-check">
 
-        @foreach (var item in Model.Toppings)
-        {
-            @Html.RadioButtonFor(m => m.checks, @item.ID)@item.Name
-        }
-        <button type="submit" class="btn btn-primary" onclick="Find()">Submit</button>
-    </form>
-    <script>
-        function Find() {
-            var box = document.getElementsByName("box")
-            for (var i = 0; i < box.length; i++) {
-                if (box[i].checked)
-                    alert(box[i].value);
-            }
-        }
-    </script>
+                                <label class="form-check-label" for="flexRadioDefault1">
+                                    <h5 style="color: #1efffe"> @Html.RadioButtonFor(m => m.checks, @item.ID) @item.Name  <b> $ @item.Price </b></h5>
+                                </label>
+                            </div>}
+                    <br />
+                    <div class="form-group">
+                        <button type="submit" class="btn " onclick="Find()">Submit</button>
+                    </div>
+                </form>
+            </div>
+    </div>
+    </div>
+   
 </body>
 </html>

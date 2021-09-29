@@ -2,7 +2,7 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
-    var DictPizza = (Dictionary<string, Pizza>)ViewData["Pizza"];
+    var DictPizza = (Dictionary<string, Cart>)ViewData["Pizza"];
     var DictToppings = (Dictionary<string, Toppings>)ViewData["Toppings"];
 
 }
@@ -32,41 +32,44 @@
                 <th>Toppings ID</th>
                 <th>Toppings Name</th>
                 <th>Price</th>
+                <th>Quantity</th>
             </tr>
         </thead>
         <tbody>
 
             @foreach (var item in DictPizza.Keys)
             {
-                <tr>
-                    <td>
-                        @DictPizza[item].ID
-                    </td>
-                    <td>
-                        @DictPizza[item].Name
-                    </td>
-                    @if (DictToppings != null)
+            <tr>
+                <td>
+                    @DictPizza[item].Pizza.ID
+                </td>
+                <td>
+                    @DictPizza[item].Pizza.Name
+                </td>
+                @if (DictToppings != null)
+                {
+                    if (DictToppings.ContainsKey(item))
                     {
-                        if (DictToppings.ContainsKey(item))
-                        {
-                            <td>@DictToppings[item].ID</td>
-                            <td>@DictToppings[item].Name</td>
-                            <td>@((@Convert.ToInt32(DictPizza[item].Price)+@Convert.ToInt32(DictToppings[item].Price)))</td>
-                        }
-                        else
-                        {
-                            <td colspan="2"> - </td>
-                            <td>@DictPizza[item].Price</td>
-                        }
-
+                        <td>@DictToppings[item].ID</td>
+                        <td>@DictToppings[item].Name</td>
+                        <td>@((@Convert.ToInt32(DictPizza[item].Pizza.Price)+@Convert.ToInt32(DictToppings[item].Price))*Convert.ToInt32(DictPizza[item].Qty))</td>
                     }
                     else
                     {
                         <td colspan="2"> - </td>
-                        <td>@DictPizza[item].Price</td>
+                        <td>@(@Convert.ToInt32(DictPizza[item].Pizza.Price)*@Convert.ToInt32(DictPizza[item].Qty))</td>
                     }
-                    <td><a href="@Url.Action("Delete","Toppings",new {ID=@item})"><button class="btn btn-warning">Delete</button></a></td>
-                </tr>
+
+                }
+                else
+                {
+                    <td colspan="2"> - </td>
+                    <td>@(@Convert.ToInt32(DictPizza[item].Pizza.Price)*@Convert.ToInt32(DictPizza[item].Qty))</td>
+                }
+                <td>@DictPizza[item].Qty</td>
+                <td><a href="@Url.Action("Delete","Toppings",new {ID=@item})"><button class="btn btn-warning">Delete</button></a></td>
+                <td><a href="@Url.Action("Add","Toppings",new {ID=@item})"><button class="btn btn-warning">Add</button></a></td>
+            </tr>
 
             }
         </tbody>

@@ -57,6 +57,9 @@ namespace PizzaHut.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
+                    b.Property<int>("Qty")
+                        .HasColumnType("int");
+
                     b.Property<int>("UserID")
                         .HasColumnType("int");
 
@@ -230,7 +233,7 @@ namespace PizzaHut.Migrations
 
             modelBuilder.Entity("PizzaHut.Models.OrderDetails", b =>
                 {
-                    b.HasOne("PizzaHut.Models.Orders", "orders")
+                    b.HasOne("PizzaHut.Models.Orders", "Orders")
                         .WithMany("OrderDetails")
                         .HasForeignKey("Order_ID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -242,7 +245,7 @@ namespace PizzaHut.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("orders");
+                    b.Navigation("Orders");
 
                     b.Navigation("Toppings");
                 });

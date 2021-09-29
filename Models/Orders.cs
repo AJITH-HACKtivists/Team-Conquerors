@@ -18,6 +18,7 @@ namespace PizzaHut.Models
         [ForeignKey("UserID")]
         public Users Users { get; set; }
         public double Price { get; set; }
+        public int Qty { get; set; }
         public DateTime OrderDate { get; set; }
         public ICollection<OrderDetails> OrderDetails { get; set; }
 
